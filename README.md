@@ -1,4 +1,4 @@
-TürkAnime Mirror & Arşiv 📺
+Yapay Zeka ile Hazırlanan TürkAnime Mirror & Arşiv 📺
 TürkAnime TV'nin arşivlenmiş ~6,100 animesini, 89,000+ bölümünü ve çoklu video sağlayıcılarını (GDrive, Mail.ru, Sibnet, Ok.ru, Clone vb.) modern, hızlı ve Vercel/Obsidian estetiğinde sunan %100 statik web uygulaması.
 
 🌟 Özellikler
