@@ -1,0 +1,8 @@
+{
+  "name": "TürkAnime Arşiv",
+  "description": "TürkAnimeTV arşivindeki ~6100 animenin bölümlerini, video oynatıcılarını ve AniList verilerini listeleyen, arayan ve izleten modern statik web uygulaması.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
