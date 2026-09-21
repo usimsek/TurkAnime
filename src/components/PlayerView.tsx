@@ -15,7 +15,7 @@ import {
   Minimize2,
 } from 'lucide-react';
 import { AnimeItem, EpisodeData, EpisodeLink } from '../types';
-import { fetchAnimeEpisodes, fetchEpisodeLinksForAgnogad } from '../services/animeApi';
+import { fetchAnimeEpisodes } from '../services/animeApi';
 import { saveWatchHistory } from '../utils/storage';
 
 interface PlayerViewProps {
@@ -41,7 +41,6 @@ export const PlayerView: React.FC<PlayerViewProps> = ({
   const [loadingEpisodes, setLoadingEpisodes] = useState(true);
   const [activePlayerIndex, setActivePlayerIndex] = useState(0);
   const [isTheaterMode, setIsTheaterMode] = useState(false);
-  const [loadingLinks, setLoadingLinks] = useState(false);
 
   // Fetch episodes on mount or anime change
   useEffect(() => {
@@ -57,24 +56,6 @@ export const PlayerView: React.FC<PlayerViewProps> = ({
   const currentEpisodeIndex = episodes.findIndex((ep) => ep.slug === currentEpisodeSlug);
   const currentEpisode =
     currentEpisodeIndex >= 0 ? episodes[currentEpisodeIndex] : episodes[0];
-
-  // If current episode links are empty (fallback from agnogad format), fetch them
-  useEffect(() => {
-    if (currentEpisode && (!currentEpisode.links || currentEpisode.links.length === 0)) {
-      setLoadingLinks(true);
-      fetchEpisodeLinksForAgnogad(anime.slug, currentEpisode.slug)
-        .then((links) => {
-          if (links.length > 0) {
-            setEpisodes((prev) =>
-              prev.map((ep) =>
-                ep.slug === currentEpisode.slug ? { ...ep, links } : ep
-              )
-            );
-          }
-        })
-        .finally(() => setLoadingLinks(false));
-    }
-  }, [anime.slug, currentEpisode?.slug]);
 
   // Save to history whenever episode changes
   useEffect(() => {
@@ -178,7 +159,7 @@ export const PlayerView: React.FC<PlayerViewProps> = ({
         <div className={isTheaterMode ? 'w-full' : 'lg:col-span-8 xl:col-span-9 space-y-3'}>
           {/* Iframe Video Container */}
           <div className="relative aspect-video w-full bg-black rounded-xl border border-neutral-800 overflow-hidden shadow-2xl flex items-center justify-center">
-            {loadingEpisodes || loadingLinks ? (
+            {loadingEpisodes ? (
               <div className="flex flex-col items-center gap-3 text-neutral-400 font-mono text-xs">
                 <Loader2 className="w-8 h-8 animate-spin text-rose-500" />
                 <span>Oynatıcı ve video kaynağı yükleniyor...</span>
